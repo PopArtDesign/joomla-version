@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+shopt -s lastpipe nullglob dotglob
+
+declare -r app_name="${0##*/}"
+
+main() {
+    declare opt_long_version=0
+
+    while [[ $# -gt 0 ]]; do
+        case "${1:-}" in
+        --)
+            shift
+            break
+            ;;
+        -h | --help)
+            help
+            ;;
+        -l | --long)
+            opt_long_version=1
+            shift
+            ;;
+        -*)
+            unknown_option "${1}"
+            ;;
+        *)
+            break
+            ;;
+        esac
+    done
+
+    declare -r version_file="$(find_version_file "${1:-}")"
+    if [[ -z "${version_file}" ]]; then
+        fail "version file not found"
+    fi
+
+    declare -A version=()
+    parse_version_file "${version_file}"
+
+    if [[ "${opt_long_version}" -eq 1 ]]; then
+        long_version
+    else
+        short_version
+    fi
+}
+
+short_version() {
+    printf "%s.%s.%s\n" \
+        "${version[MAJOR_VERSION]:-}" \
+        "${version[MINOR_VERSION]:-}" \
+        "${version[PATCH_VERSION]:-}"
+}
+
+long_version() {
+    printf "%s %s %s [ %s ] %s %s %s\n" \
+        "${version[PRODUCT]:-}" \
+        "$(short_version)" \
+        "${version[DEV_STATUS]:-}" \
+        "${version[CODENAME]:-}" \
+        "${version[RELDATE]:-}" \
+        "${version[RELTIME]:-}" \
+        "${version[RELTZ]:-}"
+}
+
+find_version_file() {
+    declare -r joomla_path="${1:-${PWD}}"
+
+    # Joomla 3.x
+    version_file="${joomla_path}/libraries/cms/version/version.php"
+    if [[ -f "${version_file}" ]]; then
+        echo "${version_file}"
+        return
+    fi
+
+    # Joomla 4.x and above
+    version_file="${joomla_path}/libraries/src/Version.php"
+    if [[ -f "${version_file}" ]]; then
+        echo "${version_file}"
+        return
+    fi
+
+    return 1
+}
+
+parse_version_file() {
+    sed -Ene "s/\s*((public)?\s+const|public)\s+\\\$?(\w+)\s*=\s*'?([^']*)'?;/\3=\4/p" "${1}" |
+        while IFS='=' read -r key value; do
+            version["${key}"]="${value}"
+        done
+
+    if [[ -n "${version[RELEASE]:-}" ]]; then
+        version[MAJOR_VERSION]="${version[RELEASE]%%.*}"
+        version[MINOR_VERSION]="${version[RELEASE]##*.}"
+        unset 'version[RELEASE]'
+    fi
+
+    if [[ -n "${version[DEV_LEVEL]:-}" ]]; then
+        version[PATCH_VERSION]="${version[DEV_LEVEL]}"
+        unset 'version[DEV_LEVEL]'
+    fi
+}
+
+help() {
+    echo "Usage: ${app_name} [options] [<path>]
+
+Print the version of a Joomla! installation.
+
+Arguments:
+  <path>      Optional path to the Joomla! installation directory.
+              Defaults to the current directory.
+
+Options:
+  -h, --help  Show this help message and exit.
+  -l, --long  Print the long version string, including codename, release date, etc.
+"
+    exit 0
+}
+
+unknown_option() {
+    fail "unknown option '${1}'
+Try '${app_name} --help' for more information."
+}
+
+value_required() {
+    fail "value required '${1}'
+Try '${app_name} --help' for more information."
+}
+
+fail() {
+    error "${1}"
+    exit "${2:-1}"
+}
+
+error() {
+    echo "${app_name}: ${1}" >&2
+}
+
+main "$@"
