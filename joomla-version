@@ -73,14 +73,14 @@ find_version_file() {
         return
     fi
 
-    # Joomla 2.x - 3.x
+    # Joomla 2.x
     version_file="${joomla_path}/libraries/cms/version/version.php"
     if [[ -f "${version_file}" ]]; then
         echo "${version_file}"
         return
     fi
 
-    # Joomla 4.x and above
+    # Joomla 3.x and above
     version_file="${joomla_path}/libraries/src/Version.php"
     if [[ -f "${version_file}" ]]; then
         echo "${version_file}"
