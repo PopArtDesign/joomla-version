@@ -1,5 +1,7 @@
 # joomla-version
 
+[![CI](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml/badge.svg)](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml)
+
 Prints used version of [Joomla!](https://joomla.org).
 
 ## Usage
