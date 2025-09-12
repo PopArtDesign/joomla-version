@@ -16,9 +16,10 @@ Describe "joomla-version"
 
   Describe "detects version"
     Parameters
-      1.5.26 "Joomla! 1.5.26 Stable [ senu takaa ama busani ] 27-March-2012 18:00 GMT"
-      2.5.28 "Joomla! 2.5.28 Stable [ Ember ] 10-December-2014 15:00 GMT"
+      1.5.26  "Joomla! 1.5.26 Stable [ senu takaa ama busani ] 27-March-2012 18:00 GMT"
+      2.5.28  "Joomla! 2.5.28 Stable [ Ember ] 10-December-2014 15:00 GMT"
       3.10.12 "Joomla! 3.10.12 Stable [ Daraja ] 8-July-2023 15:18 GMT"
+      4.4.13  "Joomla! 4.4.13 Stable [ Pamoja ] 8-April-2025 16:00 GMT"
     End
 
     It "prints the short version string for Joomla! ${1}"
