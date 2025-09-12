@@ -111,8 +111,8 @@ Arguments:
               Defaults to the current directory.
 
 Options:
-  -h, --help  Show this help message and exit.
   -l, --long  Print the long version string, including codename, release date, etc.
+  -h, --help  Show this help message and exit.
 "
     exit 0
 }
