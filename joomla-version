@@ -86,19 +86,19 @@ find_version_file() {
 parse_version_file() {
     sed -Ene "s/\s*((public)?\s+const|public)\s+\\\$?(\w+)\s*=\s*'?([^']*)'?;/\3=\4/p" "${1}" |
         while IFS='=' read -r key value; do
-            version["${key}"]="${value}"
+            case "${key}" in
+            RELEASE)
+                version[MAJOR_VERSION]="${value%%.*}"
+                version[MINOR_VERSION]="${value##*.}"
+                ;;
+            DEV_LEVEL)
+                version[PATCH_VERSION]="${value}"
+                ;;
+            *)
+                version["${key}"]="${value}"
+                ;;
+            esac
         done
-
-    if [[ -n "${version[RELEASE]:-}" ]]; then
-        version[MAJOR_VERSION]="${version[RELEASE]%%.*}"
-        version[MINOR_VERSION]="${version[RELEASE]##*.}"
-        unset 'version[RELEASE]'
-    fi
-
-    if [[ -n "${version[DEV_LEVEL]:-}" ]]; then
-        version[PATCH_VERSION]="${version[DEV_LEVEL]}"
-        unset 'version[DEV_LEVEL]'
-    fi
 }
 
 help() {
