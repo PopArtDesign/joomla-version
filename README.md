@@ -30,17 +30,13 @@ joomla-version [options] [<path>]
 
 ## Examples
 
-### Get the short version string
-
 ```sh
-$ joomla-version /path/to/joomla
+# Get the short version string
+joomla-version /path/to/joomla
 4.1.0
-```
 
-### Get the long version string
-
-```sh
-$ joomla-version --long /path/to/joomla
+# Get the long version string
+joomla-version --long /path/to/joomla
 Joomla! 4.1.0 Stable [ Amani ] 21-February-2022 16:00 GMT
 ```
 
