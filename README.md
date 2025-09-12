@@ -2,7 +2,16 @@
 
 [![CI](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml/badge.svg)](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml)
 
-Prints used version of [Joomla!](https://joomla.org).
+A simple Bash script to detect the version of a [Joomla!](https://joomla.org) installation.
+
+## Installation
+
+Just download the script to a directory in your `$PATH`. For example:
+
+```sh
+wget https://raw.githubusercontent.com/PopArtDesign/joomla-version/refs/heads/main/joomla-version \
+    -O ~/.local/bin/joomla-version && chmod +x ~/.local/bin/joomla-version
+```
 
 ## Usage
 
