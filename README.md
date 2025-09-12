@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml/badge.svg)](https://github.com/PopArtDesign/joomla-version/actions/workflows/tests.yaml)
 
-A simple Bash script to detect the version of a [Joomla!](https://joomla.org) installation.
+Bash script to detect the version of a [Joomla!](https://joomla.org) installation.
 
 ## Installation
 
