@@ -109,9 +109,9 @@ parse_version_file() {
 }
 
 help() {
-    echo "Usage: ${app_name} [options] [<path>]
+    echo -n "Print the version of a Joomla! installation. (c) PopArtDesign, https://popartdesign.ru
 
-Print the version of a Joomla! installation.
+Usage: ${app_name} [options] [<path>]
 
 Arguments:
   <path>      Optional path to the Joomla! installation directory.
