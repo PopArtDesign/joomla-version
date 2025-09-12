@@ -34,3 +34,7 @@ $ joomla-version /path/to/joomla
 $ joomla-version --long /path/to/joomla
 Joomla! 4.1.0 Stable [ Amani ] 21-February-2022 16:00 GMT
 ```
+
+## License
+
+Copyright (c) Voronkovich Oleg. Distributed under the [MIT](LICENSE).
