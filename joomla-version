@@ -4,6 +4,7 @@ set -euo pipefail
 shopt -s lastpipe nullglob dotglob
 
 declare -r app_name="${0##*/}"
+declare -r app_version="1.0"
 
 main() {
     declare opt_long_version=0
@@ -14,8 +15,11 @@ main() {
             shift
             break
             ;;
+        --version)
+            show_version
+            ;;
         -h | --help)
-            help
+            show_help
             ;;
         -l | --long)
             opt_long_version=1
@@ -108,7 +112,12 @@ parse_version_file() {
         done
 }
 
-help() {
+show_version() {
+    echo "${app_name} ${app_version}"
+    exit 0
+}
+
+show_help() {
     echo -n "Print the version of a Joomla! installation. (c) PopArtDesign, https://popartdesign.ru
 
 Usage: ${app_name} [options] [<path>]
