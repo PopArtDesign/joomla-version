@@ -9,7 +9,7 @@ Bash script to detect the version of a [Joomla!](https://joomla.org) installatio
 Just download the script to a directory in your `$PATH`. For example:
 
 ```sh
-wget https://raw.githubusercontent.com/PopArtDesign/joomla-version/refs/heads/main/joomla-version \
+wget https://raw.githubusercontent.com/PopArtDesign/joomla-version/refs/tags/v1.0/joomla-version \
     -O ~/.local/bin/joomla-version && chmod +x ~/.local/bin/joomla-version
 ```
 
